@@ -2,12 +2,37 @@ public abstract class Soldier{
   private int speed;
   private int morale;
   private int price;
-  private int shootingPower;
-  private double health;
+  private int gunPower; //simplification of the Firearm class for testing
+  private int health;
   private double cover;
   private String symbol;
+  private Firearm firearm;
   protected SoldierColour colour;
 
+  public void setPrice(int price){
+    this.price = price;
+  }
+  public int getPrice(){
+    return this.price;
+  }
+  public void setSpeed(int speed){
+    this.speed = speed;
+  }
+  public int getSpeed(){
+    return this.speed;
+  }
+  public void setMorale(int morale){
+    this.morale = morale;
+  }
+  public int getMorale(){
+    return this.morale;
+  }
+  public void setCover(double cover){
+    this.cover = cover;
+  }
+  public double getCover(){
+    return this.cover;
+  }
   public SoldierColour getColour(){
     return this.colour;
   }
@@ -25,29 +50,25 @@ public abstract class Soldier{
   public String getSymbol(){
     return this.symbol;
   }
-  public void setSymbol(String symbolIn){
-    this.symbol = symbolIn;
+  public void setSymbol(String symbol){
+    this.symbol = symbol;
   }
-  public int getShootingPower(){
-    return this.shootingPower;
+  public int getGunPower(){
+    return this.gunPower;
   }
-  public void setShootingPower(int sp){
-    this.shootingPower = sp;
+  public void setGunPower(int gunPower){
+    this.gunPower = gunPower;
   }
-  public double getHealth(){
+  public int getHealth(){
     return this.health;
   }
-  public void setHealth(double hp) {
+  public void setHealth(int hp) {
     this.health = hp;
   }
   public boolean alive(int dmg){
     if (this.health - dmg <= 0)
     {
       return false;
-    }
-    else
-    {
-    this.health -= dmg;
     }
     return true;
   }

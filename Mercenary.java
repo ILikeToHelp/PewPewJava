@@ -3,7 +3,7 @@ public class Mercenary extends Soldier{
     super(redOrBlue);
     super.setSymbol("M");
     super.setHealth(100);
-    super.setShootingPower(50);
+    super.setGunPower(50);
     // if(redOrBlue ==  SoldierColour.RED){
     //   super.setSymbol("M"); //camp
     // }

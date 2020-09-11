@@ -91,7 +91,7 @@ public class Game {
       }
       else if (s.getColour() == SoldierColour.RED && !redsTurn
               || s.getColour() == SoldierColour.BLUE && redsTurn) {
-        System.out.println("Not your soldier.");
+        System.out.println("You dont get to move opponents soldiers.");
         continue;
       }
       if(option == 1)
@@ -107,27 +107,36 @@ public class Game {
         }
       }
       else {
-        Soldier pray = b.getSoldier(i0,j0);
+        Soldier pray = b.getSoldier(i1,j1);
         if(pray == null)
         {
           System.out.println("You're shooting grass, well done.");
           continue;
         }
-        else if (pray.getColour() == SoldierColour.RED && !redsTurn
-                || pray.getColour() == SoldierColour.BLUE && redsTurn) {
+        else if (pray.getColour() == SoldierColour.RED && redsTurn
+                || pray.getColour() == SoldierColour.BLUE && !redsTurn) {
           System.out.println("Friendly fire is not allowed.");
           continue;
         }
-        else if(pray.alive(s.getShootingPower())){
-          System.out.println("Their wounded, but they live through.");
+        else if(pray.alive(s.getGunPower())){
+          pray.setHealth(pray.getHealth()-s.getGunPower());
+          System.out.println("DMG:" + s.getGunPower() + " new hp:" + pray.getHealth());
+          //System.out.println("Theye're wounded, but they live through.");
         }
         else{
           System.out.println("Target eliminated.");
           b.removeSoldier(i1,j1);
+          if(pray.getColour() == SoldierColour.RED)
+          {
+            Game.redSoldiers--;
+          }
+          else
+          {
+            Game.blueSoldiers--;
+          }
+          }
         }
-
-      redsTurn = !redsTurn;
-    }
+    redsTurn = !redsTurn;
   }
 }
   public boolean validCoordinates(String input){

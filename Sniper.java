@@ -2,7 +2,7 @@ public class Sniper extends Soldier{
   public Sniper(SoldierColour redOrBlue){
     super(redOrBlue);
     super.setSymbol("S");
-    super.setShootingPower(100);
+    super.setGunPower(100);
     super.setHealth(50);
     // if(redOrBlue ==  SoldierColour.RED){
     //   super.setSymbol("\u26FE"); //camp
