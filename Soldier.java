@@ -12,6 +12,14 @@ public abstract class Soldier{
   }
   public Soldier (SoldierColour redOrBlue){
     this.colour = redOrBlue;
+    if(redOrBlue == SoldierColour.RED)
+    {
+      Game.redSoldiers++;
+    }
+    else
+    {
+      Game.blueSoldiers++;
+    }
   }
   public String getSymbol(){
     return this.symbol;

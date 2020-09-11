@@ -1,12 +1,13 @@
 public class Sniper extends Soldier{
   public Sniper(SoldierColour redOrBlue){
     super(redOrBlue);
-    if(redOrBlue ==  SoldierColour.RED){
-      super.setSymbol("\u26FE"); //camp
-    }
-    else{
-      super.setSymbol("\u26FF"); //whatever
-    }
+    super.setSymbol("S");
+    // if(redOrBlue ==  SoldierColour.RED){
+    //   super.setSymbol("\u26FE"); //camp
+    // }
+    // else{
+    //   super.setSymbol("\u26FF"); //whatever
+    // }
   }
 
   @Override

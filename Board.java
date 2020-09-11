@@ -10,9 +10,8 @@ public class Board {
 	}
 
 	public void printBoard(){
-		System.out.print("\n  a b c d e f g h i j\n");
-		System.out.print("  --------------------- \n");
-		String wsp=" ";String bar="|";
+		System.out.print("\n  a b c d e f g h i\n");
+		System.out.print(" -------------------  \n");
 
 		for (int i=0; i<board[0].length; i++){
 			int row=i+1;
@@ -26,10 +25,10 @@ public class Board {
 					else
 						System.out.print("| ");
 				}
-				System.out.print("  "+row+"\n");
+				System.out.print(" "+row+"\n");
 		}
-		System.out.print("  -----------------------");
-		System.out.print("\n  a b c d e f g h i j\n");
+		System.out.print(" -------------------  ");
+		System.out.print("\n  a b c d e f g h i\n");
 
 	}
 
