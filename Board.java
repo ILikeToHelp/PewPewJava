@@ -32,7 +32,7 @@ public class Board {
 
 	}
 
-	public boolean moveSoldier(int i0, int j0, int i1, int j1, Soldier s){
+	public void moveSoldier(int i0, int j0, int i1, int j1, Soldier s){
 		board[i0][j0].removeSoldier();
 		// if(board[i1][j1].hasSoldier()){
 		// 	if(board[i1][j1].getSoldier().getSymbol() == "\u2654" ||
@@ -43,11 +43,13 @@ public class Board {
     //     }
 	setSoldier(i1, j1, s);
 	printBoard();
-	return false;
 }
 
 public void setSoldier(int i, int j, Soldier s){
   board[i][j].setSoldier(s);
+}
+public void removeSoldier(int i, int j){
+  board[i][j].removeSoldier();
 }
 public Soldier getSoldier(int i, int j){
   return board[i][j].getSoldier();

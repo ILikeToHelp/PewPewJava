@@ -2,6 +2,8 @@ public class Sniper extends Soldier{
   public Sniper(SoldierColour redOrBlue){
     super(redOrBlue);
     super.setSymbol("S");
+    super.setShootingPower(100);
+    super.setHealth(50);
     // if(redOrBlue ==  SoldierColour.RED){
     //   super.setSymbol("\u26FE"); //camp
     // }
@@ -12,6 +14,6 @@ public class Sniper extends Soldier{
 
   @Override
   public boolean isLegitMove(int j0, int i0, int j1, int i1){
-    return false;
+    return true;
   }
 }
