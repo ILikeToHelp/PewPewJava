@@ -2,12 +2,14 @@ public abstract class Soldier{
   private int speed;
   private int morale;
   private int price;
-  private int gunPower; //simplification of the Firearm class for testing
-  private int health;
+  private double health;
   private double cover;
   private String symbol;
   private Firearm firearm;
   protected SoldierColour colour;
+  private Distance profeciency;
+  private int gunPower; /*simplification of the Firearm class for testing,
+                          to be replaced by calculations in getGunPower method */
 
   public void setPrice(int price){
     this.price = price;
@@ -59,19 +61,35 @@ public abstract class Soldier{
   public void setGunPower(int gunPower){
     this.gunPower = gunPower;
   }
-  public int getHealth(){
+  public double getHealth(){
     return this.health;
   }
-  public void setHealth(int hp) {
+  public void setHealth(double hp) {
     this.health = hp;
   }
-  public boolean alive(int dmg){
+  public boolean alive(double dmg){
     if (this.health - dmg <= 0)
     {
       return false;
     }
     return true;
   }
-
+  public Distance getDistanceProficiency(){
+    return this.profeciency;
+  }
+  public void setProficiencyDistance(Distance x){
+    this.profeciency = x;
+  }
   public abstract boolean isLegitMove(int i0, int j0, int i1, int j1);
+
+  public  Distance distanceToEnemy(int i0, int j0, int i1, int j1){
+    double x = Math.sqrt(Math.pow((i1-i0),2) + Math.pow((j1-j0),2));
+    if (x / Board.maxRange <= 0.3){
+      return Distance.SHORT;
+    }
+    else if (x / Board.maxRange > 0.7){
+      return Distance.LONG;
+    }
+    return Distance.MEDIUM;
+  }
 }

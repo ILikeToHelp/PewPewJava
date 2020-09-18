@@ -1,6 +1,11 @@
 public class Board {
 
-	private static Square [][] board = new Square[9][9];
+	public static int sizeX = 9;
+	public static int sizeY = 9;
+	public static int maxRange =
+	(int) Math.sqrt(Math.pow((sizeX-1),2) + Math.pow((sizeY-1),2));
+	
+	private static Square [][] board = new Square[sizeX][sizeY];
 
 	public Board(){
 		for (int i=0; i<board[0].length; i++){

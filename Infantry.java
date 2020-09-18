@@ -4,6 +4,8 @@ public class Infantry extends Soldier{
     super.setSymbol("I");
     super.setHealth(200);
     super.setGunPower(40);
+    super.setProficiencyDistance(Distance.MEDIUM);
+
     // if(redOrBlue ==  SoldierColour.RED){
     //   super.setSymbol("\u26FC"); //camp
     // }

@@ -12,6 +12,7 @@ public class Game {
 
   public Game () {
     Board b = new Board();
+    System.out.println("The longest distance is: " + b.maxRange);
     initialisePieces(b);
     b.printBoard();
     boolean redsTurn = true;
@@ -83,22 +84,22 @@ public class Game {
         }
       }
 
-      Soldier s = b.getSoldier(i0, j0);
-      if(s == null)
+      Soldier dealer = b.getSoldier(i0, j0);
+      if(dealer == null)
       {
         System.out.println("No soldier at entry coords...");
         continue;
       }
-      else if (s.getColour() == SoldierColour.RED && !redsTurn
-              || s.getColour() == SoldierColour.BLUE && redsTurn) {
+      else if (dealer.getColour() == SoldierColour.RED && !redsTurn
+              || dealer.getColour() == SoldierColour.BLUE && redsTurn) {
         System.out.println("You dont get to move opponents soldiers.");
         continue;
       }
       if(option == 1)
       {
-        if(s.isLegitMove(i0,j0,i1,j1))
+        if(dealer.isLegitMove(i0,j0,i1,j1))
         {
-          b.moveSoldier(i0,j0,i1,j1, s);
+          b.moveSoldier(i0,j0,i1,j1, dealer);
         }
         else
         {
@@ -107,26 +108,27 @@ public class Game {
         }
       }
       else {
-        Soldier pray = b.getSoldier(i1,j1);
-        if(pray == null)
+        Soldier target = b.getSoldier(i1,j1);
+        double damage = calculateDamage(i0,j0,i1,j1, dealer, target);
+        if(target == null)
         {
           System.out.println("You're shooting grass, well done.");
           continue;
         }
-        else if (pray.getColour() == SoldierColour.RED && redsTurn
-                || pray.getColour() == SoldierColour.BLUE && !redsTurn) {
+        else if (target.getColour() == SoldierColour.RED && redsTurn
+                || target.getColour() == SoldierColour.BLUE && !redsTurn) {
           System.out.println("Friendly fire is not allowed.");
           continue;
         }
-        else if(pray.alive(s.getGunPower())){
-          pray.setHealth(pray.getHealth()-s.getGunPower());
-          System.out.println("DMG:" + s.getGunPower() + " new hp:" + pray.getHealth());
+        else if(target.alive(damage)){
+          target.setHealth(target.getHealth()-damage);
+          System.out.println("DMG:" + damage + " new hp:" + target.getHealth());
           //System.out.println("Theye're wounded, but they live through.");
         }
         else{
           System.out.println("Target eliminated.");
           b.removeSoldier(i1,j1);
-          if(pray.getColour() == SoldierColour.RED)
+          if(target.getColour() == SoldierColour.RED)
           {
             Game.redSoldiers--;
           }
@@ -168,4 +170,17 @@ public class Game {
     b.setSoldier(7,7,new Infantry(SoldierColour.BLUE));
     b.setSoldier(6,1,new Mercenary(SoldierColour.BLUE));
   }
+
+  public double calculateDamage(int i0, int j0, int i1,
+      int j1, Soldier dealer, Soldier target){
+    double theDAMAGE = dealer.getGunPower();
+    if(dealer.distanceToEnemy(i0,j0,i1,j1) == dealer.getDistanceProficiency()){
+      theDAMAGE *= 1.25;  //25% bonus for using soldiers in proficiency range
+    }
+
+    //TODO 1. Penetration vs cover. armour?
+
+
+    return theDAMAGE;
+  };
 }
