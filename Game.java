@@ -173,14 +173,74 @@ public class Game {
 
   public double calculateDamage(int i0, int j0, int i1,
       int j1, Soldier dealer, Soldier target){
-    double theDAMAGE = dealer.getGunPower();
-    if(dealer.distanceToEnemy(i0,j0,i1,j1) == dealer.getDistanceProficiency()){
-      theDAMAGE *= 1.25;  //25% bonus for using soldiers in proficiency range
+
+    /*
+    If the target is in the dealer's proficiency distance, he takes full damage
+    i.e. the dealer hits all shots and ignores cover
+
+    else if the distance is off by 1 from profeciency
+        there's 15% chance for the unit to miss (chance to miss = 0.15)
+
+    else if the distance is off by 2
+        chance to miss = 0.3
+
+    now
+
+    if dealer doesnt miss (Random r > chance to miss, where 0 < r < 1)
+
+
+    there's  still a chance they hit the target, not the cover.
+    that chance (called "clean hit") is equal to gun accuracy * (1 - cover)
+    e.g. if the target has full cover (1.0) there is no chance for clean hit
+    but if the target has no cover, chance to hit is equal to guns accuracy
+
+    for a clean hit the target takes full damage
+    else, damage is multiplied by the penetration value.
+    e.g. for gun with high penetration (0.9) shooting through cover is close to
+    full firearms potential damage
+    but a firearm with low penetration (0.5) damage is sharply reduce
+
+    TBC
+    */
+    double theDAMAGE = dealer.getFirearm().getDMGPotential();
+    float chanceToMiss = 0;
+    float cover = target.getCover();
+    float penetration = dealer.getFirearm().getPenetration();
+    float accuracy = dealer.getFirearm().getAccuracy();
+    int distanceDifference = math.mod(
+        dealer.distanceToEnemy(i0,j0,i1,j1) - dealer.getDistanceProficiency());
+    if(distanceDifference == 0){
+      return theDAMAGE;  //within profeciency distance, deal full damage
     }
+    else if(distanceDifference == 1){
+      chanceToMiss = 0.15;
+    }
+    else if(distanceDifference == 2){
+      chanceToMiss = 0.3;
+    }
+    else{Exception somethingWentWrong = new WeirdException();}
 
-    //TODO 1. Penetration vs cover. armour?
+    float precision = Random.between(0,1);
 
+    if (precision > chanceToMiss){ /*dealer hits!
+      is it a clean hit tho?*/
+      cleanHitChance = dealer.getFirearm().getAccuracy() * (1.0 - cover);
 
-    return theDAMAGE;
+      float isClean = Random.between(0,1);
+      if(isClean < cleanHitChance){
+        return theDAMAGE; //still full damage, if they hit precisely and cleanly
+      }
+      else{
+      //hit, but not clean. So, reduce damage by mul with pen value
+      theDAMAGE *= penetration;
+      }
+
+    }
+    else{
+      // YOU MISS, 0 dmg, lul, kek
+    }
+    return 0;
   };
+
+
 }
