@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Game {
 
@@ -203,12 +204,12 @@ public class Game {
     TBC
     */
     double theDAMAGE = dealer.getFirearm().getDMGPotential();
-    float chanceToMiss = 0;
-    float cover = target.getCover();
-    float penetration = dealer.getFirearm().getPenetration();
-    float accuracy = dealer.getFirearm().getAccuracy();
-    int distanceDifference = math.mod(
-        dealer.distanceToEnemy(i0,j0,i1,j1) - dealer.getDistanceProficiency());
+    double chanceToMiss = 0;
+    double cover = target.getCover();
+    double penetration = dealer.getFirearm().getPenetVal();
+    double accuracy = dealer.getFirearm().getAccuracy();
+    int distanceDifference = Math.abs(
+        dealer.distanceToEnemy(i0,j0,i1,j1).value - dealer.getDistanceProficiency().value);
     if(distanceDifference == 0){
       return theDAMAGE;  //within profeciency distance, deal full damage
     }
@@ -218,15 +219,18 @@ public class Game {
     else if(distanceDifference == 2){
       chanceToMiss = 0.3;
     }
-    else{Exception somethingWentWrong = new WeirdException();}
+    else{Exception somethingWentWrong = new WeirdException("Weird distance.");}
 
-    float precision = Random.between(0,1);
+    Random r1 = new Random();
+    double precision = 0 + r1.nextDouble() * (1 - 0);
+
 
     if (precision > chanceToMiss){ /*dealer hits!
       is it a clean hit tho?*/
-      cleanHitChance = dealer.getFirearm().getAccuracy() * (1.0 - cover);
+      double cleanHitChance = dealer.getFirearm().getAccuracy() * (1.0 - cover);
 
-      float isClean = Random.between(0,1);
+      Random r2 = new Random();
+      double isClean = 0 + r2.nextDouble() * (1 - 0);
       if(isClean < cleanHitChance){
         return theDAMAGE; //still full damage, if they hit precisely and cleanly
       }

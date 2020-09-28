@@ -3,13 +3,25 @@ public abstract class Soldier{
   private int morale;
   private int price;
   private double health;
-  private double cover;
+  private float cover;
   private String symbol;
   private Firearm firearm;
   protected SoldierColour colour;
   private Distance profeciency;
   private int gunPower; /*simplification of the Firearm class for testing,
                           to be replaced by calculations in getGunPower method */
+
+  public Soldier (SoldierColour redOrBlue){
+    this.colour = redOrBlue;
+    if(redOrBlue == SoldierColour.RED)
+    {
+      Game.redSoldiers++;
+    }
+    else
+    {
+      Game.blueSoldiers++;
+    }
+  }
 
   public void setPrice(int price){
     this.price = price;
@@ -29,26 +41,16 @@ public abstract class Soldier{
   public int getMorale(){
     return this.morale;
   }
-  public void setCover(double cover){
+  public void setCover(float cover){
     this.cover = cover;
   }
-  public double getCover(){
+  public float getCover(){
     return this.cover;
   }
   public SoldierColour getColour(){
     return this.colour;
   }
-  public Soldier (SoldierColour redOrBlue){
-    this.colour = redOrBlue;
-    if(redOrBlue == SoldierColour.RED)
-    {
-      Game.redSoldiers++;
-    }
-    else
-    {
-      Game.blueSoldiers++;
-    }
-  }
+
   public String getSymbol(){
     return this.symbol;
   }
@@ -91,5 +93,12 @@ public abstract class Soldier{
       return Distance.LONG;
     }
     return Distance.MEDIUM;
+  }
+
+  public Firearm getFirearm(){
+    return this.firearm;
+  }
+  public void setFirearm(Firearm firearm){
+    this.firearm = firearm;
   }
 }
