@@ -1,4 +1,4 @@
-package game.map;
+package game.cli;
 
 
 public class Board {

@@ -7,7 +7,9 @@ public abstract class Firearm{
   private double penetrationValue;
   private double accuracy;
   private boolean isAutomatic;
+
   public Firearm(){}
+    
   public String getModel(){return this.model;}
   public int getDMGPotential(){return this.damagePotential;}
   public int getMagCapacity(){return this.magazineCapacity;}

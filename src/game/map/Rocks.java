@@ -1,6 +1,6 @@
 package game.map;
 
-public class Rock extends FieldType{
+public class Rocks extends FieldType{
   public Rock(){
     super.setSymbol('R');
     super.setCover(0.6);
